@@ -7,10 +7,13 @@ from rest_framework.permissions import IsAuthenticated
 
 from .models import Booking, Menu
 from .serializers import BookingSerializer, MenuSerializer
-def index(request):
-    return render(request, 'index.html', {})
- 
-class BookingViewSet(viewsets.ModelViewSet):
+
+class BookingsView(ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
+    
+class SingleBookingView(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
